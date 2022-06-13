@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLAnmiiModelStoreContainer" CdmEntityContainer="QLAnmiiEntities">
+    <EntitySetMapping Name="HOA_DON">
+      <EntityTypeMapping TypeName="QLAnmiiModel.HOA_DON">
+        <MappingFragment StoreEntitySet="HOA_DON">
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+          <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+          <ScalarProperty Name="HOTENKH" ColumnName="HOTENKH" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="MANV" ColumnName="MANV" />
+          <ScalarProperty Name="THOIGIANDAT" ColumnName="THOIGIANDAT" />
+          <ScalarProperty Name="THOIGIANGIAO" ColumnName="THOIGIANGIAO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIMONANs">
+      <EntityTypeMapping TypeName="QLAnmiiModel.LOAIMONAN">
+        <MappingFragment StoreEntitySet="LOAIMONAN">
+          <ScalarProperty Name="MALOAIMONAN" ColumnName="MALOAIMONAN" />
+          <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_AN">
+      <EntityTypeMapping TypeName="QLAnmiiModel.MON_AN">
+        <MappingFragment StoreEntitySet="MON_AN">
+          <ScalarProperty Name="MAMONAN" ColumnName="MAMONAN" />
+          <ScalarProperty Name="MALOAIMONAN" ColumnName="MALOAIMONAN" />
+          <ScalarProperty Name="TENMONAN" ColumnName="TENMONAN" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="ANHMONAN" ColumnName="ANHMONAN" />
+          <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NHAN_VIEN">
+      <EntityTypeMapping TypeName="QLAnmiiModel.NHAN_VIEN">
+        <MappingFragment StoreEntitySet="NHAN_VIEN">
+          <ScalarProperty Name="MANV" ColumnName="MANV" />
+          <ScalarProperty Name="HOTENNV" ColumnName="HOTENNV" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="ANHNV" ColumnName="ANHNV" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHI_TIET_HOA_HON">
+      <EntityTypeMapping TypeName="QLAnmiiModel.CHI_TIET_HOA_HON">
+        <MappingFragment StoreEntitySet="CHI_TIET_HOA_HON">
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+          <ScalarProperty Name="MAMONAN" ColumnName="MAMONAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="HoaDon_ThongKe" FunctionName="QLAnmiiModel.Store.HoaDon_ThongKe">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLAnmiiModel.HoaDon_ThongKe_Result">
+          <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+          <ScalarProperty Name="HOTENKH" ColumnName="HOTENKH" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="MANV" ColumnName="MANV" />
+          <ScalarProperty Name="THOIGIANDAT" ColumnName="THOIGIANDAT" />
+          <ScalarProperty Name="THOIGIANGIAO" ColumnName="THOIGIANGIAO" />
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="LIENHEs">
+      <EntityTypeMapping TypeName="QLAnmiiModel.LIENHE">
+        <MappingFragment StoreEntitySet="LIENHE">
+          <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="MALIENHE" ColumnName="MALIENHE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

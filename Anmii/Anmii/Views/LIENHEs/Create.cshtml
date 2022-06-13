@@ -1,0 +1,57 @@
+﻿@model Anmii.Models.LIENHE
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutGioHang.cshtml";
+}
+
+@using (Html.BeginForm("Create", "LIENHEs", FormMethod.Post, new { @style = "width: 100%" }))
+{
+    <div>
+        <div class="container p-5">
+            <div class="row m-5">
+                <div class="col-12 mb-3">
+                    <h5 class="font-weight-bold">LIÊN HỆ</h5>
+                </div>
+                <div class="col-12">
+                    <div class="row ">
+                        <div class="col-lg-6 mb-3">
+                            <input type="text" class="form-control" placeholder="Họ và tên" name="HOTEN">
+                            @Html.ValidationMessageFor(model => model.HOTEN, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <input name="SDT" placeholder="Số điện thoại" type="text" class="form-control">
+                            @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-lg-12 mb-3">
+                            <input name="EMAIL" placeholder="Email" type="email" class="form-control">
+                            @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <input name="TIEUDE" placeholder="Tiêu đề" type="text" class="form-control">
+                            @Html.ValidationMessageFor(model => model.TIEUDE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-12 mb-2">
+                            <textarea name="NOIDUNG" class="form-control" placeholder="Nội dung"></textarea>
+                            @Html.ValidationMessageFor(model => model.NOIDUNG, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button class="btn btn-warning" type="submit">Gửi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script language="javascript">
+    function xacNhan() {
+        alert("Xác nhận đặt hàng thành công!");
+    }
+</script>

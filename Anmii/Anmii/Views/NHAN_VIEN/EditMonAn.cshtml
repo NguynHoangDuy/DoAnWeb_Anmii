@@ -1,0 +1,81 @@
+﻿@model Anmii.Models.MON_AN
+@{
+    ViewBag.Title = "EditMonAn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var fileupload = $("#Avatar");
+            var image = $("#FileUpload");
+            image.click(function () {
+                fileupload.click();
+            });
+            fileupload.change(function () {
+                var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
+                document.getElementById("ANHMONAN").value = fileName;
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm("EditMonAn", "NHAN_VIEN", FormMethod.Post, new { @style = "margin-left: auto; margin-right: auto;", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cập nhật thông tin món ăn</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MAMONAN)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TENMONAN, "Tên món ăn", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.TENMONAN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TENMONAN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MOTA, "Mô tả", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+
+                @Html.TextAreaFor(model => model.MOTA, new { htmlAttributes = new { @class = "form-control" }, @style = "width: 600px; height: 100px" })
+                @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ANHMONAN, "Ảnh món ăn", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.ANHMONAN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ANHMONAN, "", new { @class = "text-danger" })
+                <input type="file" name="Avatar" id="Avatar" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DONGIA, "Đơn giá", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.DONGIA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DONGIA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MALOAIMONAN, "Loại", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.DropDownList("MALOAIMONAN", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MALOAIMONAN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btn btn-warning">|
+                @Html.ActionLink("Quay lại", "IndexMonAn")
+            </div>
+        </div>
+    </div>
+}
+
+

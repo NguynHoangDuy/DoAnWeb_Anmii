@@ -1,0 +1,60 @@
+﻿@model Anmii.Models.ViewModels
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNguoiDung.cshtml";
+}
+
+
+    <div class="row">
+        @foreach (var item in Model.MonAns)
+        {
+                <div class="col-md-4 col-6 order-2 pr-md-4 my-2 my-md-2">
+                    <div class="w-100 rounded m-1 sp" style="background-color:palegoldenrod;">
+                        <div class="bg-image hover-overlay ripple p-0 m-1" data-mdb-ripple-color="light">
+                            <a class="mask_hover" href="@Url.Action("Details","ChiTiet", new { id = item.MAMONAN })">
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)">
+                                    <img src="~/Images/@Html.DisplayFor(modelItem => item.ANHMONAN)" class="img-fluid is_mobile" style="width: 400px; height:200px" />
+                                </div>
+                            </a>
+                        </div>
+                        <div id="cart_body" class="card-body" style="cursor: default">
+                            <h4 class="card-title" style="color:red">@Html.DisplayFor(modelItem => item.TENMONAN)</h4>
+                            <p class="card-text">
+                                Giá: @Html.DisplayFor(modelItem => item.DONGIA)VNĐ
+                         
+   </p>
+
+                        </div>
+                        <div style="display: flex; justify-content:space-between; align-items: flex-end">
+                            @using (Html.BeginForm("ThemGioHang", "GioHang", new { @Ma = item.MAMONAN, @strURL = Request.Url.ToString() }))
+                            {
+                                <button type="submit" class="btn btn-danger" style="margin:3%">Thêm vào <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+        }
+    </div>
+
+<style>
+    ul.pagination li {
+        padding: 6px;
+        border-radius: 6px;
+    }
+</style>
+    <div class="mt-4">
+        <nav aria-label="Page navigation example mx-auto d-flex">
+            <ul class="pagination justify-content-center">
+                @Html.PagedListPager(Model.MonAns, page => Url.Action("Index", new { page }))
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+

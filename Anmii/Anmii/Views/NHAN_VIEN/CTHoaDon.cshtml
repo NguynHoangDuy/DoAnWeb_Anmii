@@ -1,0 +1,107 @@
+﻿@using Anmii.Models
+@{
+    ViewBag.Title = "CTHoaDon";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string id = ViewBag.id;
+    QLAnmiiEntities db = new QLAnmiiEntities();
+    var hd = db.HOA_DON.SingleOrDefault(m => m.MAHD == id);
+
+    var listCT = db.CHI_TIET_HOA_HON.Where(m => m.MAHD == id);
+
+    var grid = new WebGrid(listCT, canPage: true, defaultSort: "MAHD", rowsPerPage: 5);
+    int tongtien = 0;
+}
+
+
+<style>
+    .invoice {
+        border: 1px solid black;
+        border-radius: 5px;
+        box-shadow: 5px 5px #888888;
+        box-sizing: border-box;
+        width: 80%;
+        margin: 15px auto;
+        margin-left: 10%;
+        padding-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-left: 50px;
+    }
+
+    table {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    thead {
+        background-color: lightgreen;
+    }
+
+    table th,
+    tr,
+    td {
+        padding: 5px;
+    }
+
+    .tab-content {
+        margin-top: 50px;
+    }
+</style>
+<div class="tab-pane">
+    <div class="row">
+        <h1 style="margin-left:auto; margin-right:auto">CHI TIẾT HÓA ĐƠN</h1>
+
+        <div class="invoice col-md-10 offset-md-2" style=" background-color: white">
+            <div class="" style="text-align: left; background-color: white">
+                <div class="col-md-12" style="text-align: center;">
+                    <h3 style="margin-top:15px"><b>HÓA ĐƠN: #<span>@hd.MAHD</span></b></h3>
+                    <p>(Ngày bán: <span> @hd.THOIGIANGIAO </span>)</p>
+                    <h4><b>THÔNG TIN KHÁCH HÀNG</b></h4>
+                </div>
+                <div style="">
+                    <label>HỌ TÊN KHÁCH HÀNG: </label> <span> @hd.HOTENKH</span><br />
+                    <label>SỐ ĐIỆN THOẠI: </label> <span> @hd.SDT</span><br />
+                    <label>ĐỊA CHỈ NHẬN HÀNG: </label> <span> @hd.DIACHI</span><br />
+                    <label>NGÀY GIAO: </label> <span> @hd.THOIGIANGIAO</span><br />
+                    <label>NHÂN VIÊN IN HÓA ĐƠN: </label> <span> @hd.NHAN_VIEN.HOTENNV</span><br />
+                </div>
+                <div class="col-md-12" style="margin-top: 8px">
+                    <p><b>Danh sách món ăn:</b></p>
+                    @ViewBag.TB
+                    @grid.GetHtml(
+                    headerStyle: "header_table",
+                    tableStyle: "table table-bordered table-hover",
+                    footerStyle: "grid-footer",
+                    fillEmptyRows: true,
+                    mode: WebGridPagerModes.Numeric,
+                    alternatingRowStyle: "alternatingRowStyle",
+                    columns: new[]  // colums in grid
+                    {
+                        grid.Column("STT",format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(grid.TotalRowCount / grid.PageCount) / grid.RowsPerPage) * grid.RowsPerPage * grid.PageIndex),
+                        grid.Column("MAMONAN","Mã món ăn"),
+                        grid.Column("MON_AN.TENMONAN","Tên món ăn"  ),
+                        grid.Column("MON_AN.DONGIA","Đơn giá"  ),
+                        grid.Column("SOLUONG","Số lượng"  ),
+                        grid.Column("Thành tiền", format: item => (int)item.MON_AN.DONGIA * item.SOLUONG)
+                    })
+                </div>
+                <div style="margin-left: 50px">
+                    @foreach (var item in listCT)
+                    {
+                        tongtien += (int)item.SOLUONG * (int)item.MON_AN.DONGIA;
+                    }
+                    <h3 style="color: darkgreen; text-align: center">TỔNG TIỀN: @tongtien.ToString("#,##") đồng</h3>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    <div>@Html.ActionLink("Quay lại", "IndexHD")</div>
+</p>
+

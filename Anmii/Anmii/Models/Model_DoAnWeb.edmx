@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QLAnmiiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CHI_TIET_HOA_HON">
+          <Key>
+            <PropertyRef Name="MAMONAN" />
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MAHD" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+        </EntityType>
+        <EntityType Name="HOA_DON">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="HOTENKH" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
+          <Property Name="SDT" Type="varchar" MaxLength="11" />
+          <Property Name="MANV" Type="varchar" MaxLength="30" />
+          <Property Name="THOIGIANDAT" Type="datetime" />
+          <Property Name="THOIGIANGIAO" Type="datetime" />
+          <Property Name="TONGTIEN" Type="float" />
+        </EntityType>
+        <EntityType Name="LIENHE">
+          <Key>
+            <PropertyRef Name="MALIENHE" />
+          </Key>
+          <Property Name="MALIENHE" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="100" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="TIEUDE" Type="varchar" MaxLength="100" />
+          <Property Name="NOIDUNG" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="LOAIMONAN">
+          <Key>
+            <PropertyRef Name="MALOAIMONAN" />
+          </Key>
+          <Property Name="MALOAIMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TENLOAI" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MON_AN">
+          <Key>
+            <PropertyRef Name="MAMONAN" />
+          </Key>
+          <Property Name="MAMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MALOAIMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TENMONAN" Type="nvarchar" MaxLength="100" />
+          <Property Name="MOTA" Type="varchar" MaxLength="300" />
+          <Property Name="ANHMONAN" Type="varchar" MaxLength="200" />
+          <Property Name="DONGIA" Type="int" />
+        </EntityType>
+        <EntityType Name="NHAN_VIEN">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="HOTENNV" Type="nvarchar" MaxLength="100" />
+          <Property Name="GIOITINH" Type="bit" />
+          <Property Name="NGAYSINH" Type="date" />
+          <Property Name="SDT" Type="varchar" MaxLength="10" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="200" />
+          <Property Name="ANHNV" Type="varchar" MaxLength="200" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="200" />
+          <Property Name="MATKHAU" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_HD2">
+          <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHI_TIET_HOA_HON" Type="Self.CHI_TIET_HOA_HON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOA_DON">
+              <PropertyRef Name="MAHD" />
+            </Principal>
+            <Dependent Role="CHI_TIET_HOA_HON">
+              <PropertyRef Name="MAHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LMA">
+          <End Role="LOAIMONAN" Type="Self.LOAIMONAN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MON_AN" Type="Self.MON_AN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIMONAN">
+              <PropertyRef Name="MALOAIMONAN" />
+            </Principal>
+            <Dependent Role="MON_AN">
+              <PropertyRef Name="MALOAIMONAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MA">
+          <End Role="MON_AN" Type="Self.MON_AN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CHI_TIET_HOA_HON" Type="Self.CHI_TIET_HOA_HON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MON_AN">
+              <PropertyRef Name="MAMONAN" />
+            </Principal>
+            <Dependent Role="CHI_TIET_HOA_HON">
+              <PropertyRef Name="MAMONAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NV">
+          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAN_VIEN">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="HOA_DON">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="HoaDon_ThongKe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tgbd" Type="datetime" Mode="In" />
+          <Parameter Name="tgkt" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="QLAnmiiModelStoreContainer">
+          <EntitySet Name="CHI_TIET_HOA_HON" EntityType="Self.CHI_TIET_HOA_HON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOA_DON" EntityType="Self.HOA_DON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LIENHE" EntityType="Self.LIENHE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAIMONAN" EntityType="Self.LOAIMONAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MON_AN" EntityType="Self.MON_AN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHAN_VIEN" EntityType="Self.NHAN_VIEN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HD2" Association="Self.FK_HD2">
+            <End Role="HOA_DON" EntitySet="HOA_DON" />
+            <End Role="CHI_TIET_HOA_HON" EntitySet="CHI_TIET_HOA_HON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LMA" Association="Self.FK_LMA">
+            <End Role="LOAIMONAN" EntitySet="LOAIMONAN" />
+            <End Role="MON_AN" EntitySet="MON_AN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MA" Association="Self.FK_MA">
+            <End Role="MON_AN" EntitySet="MON_AN" />
+            <End Role="CHI_TIET_HOA_HON" EntitySet="CHI_TIET_HOA_HON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NV" Association="Self.FK_NV">
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+            <End Role="HOA_DON" EntitySet="HOA_DON" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLAnmiiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="HOA_DON">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HOTENKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="THOIGIANDAT" Type="DateTime" Precision="3" />
+          <Property Name="THOIGIANGIAO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="NHAN_VIEN" Relationship="Self.FK_NV" FromRole="HOA_DON" ToRole="NHAN_VIEN" />
+          <Property Name="TONGTIEN" Type="Double" />
+          <NavigationProperty Name="CHI_TIET_HOA_HON" Relationship="QLAnmiiModel.FK_HD2" FromRole="HOA_DON" ToRole="CHI_TIET_HOA_HON" />
+        </EntityType>
+        <EntityType Name="LOAIMONAN">
+          <Key>
+            <PropertyRef Name="MALOAIMONAN" />
+          </Key>
+          <Property Name="MALOAIMONAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TENLOAI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MON_AN" Relationship="Self.FK_LMA" FromRole="LOAIMONAN" ToRole="MON_AN" />
+        </EntityType>
+        <EntityType Name="MON_AN">
+          <Key>
+            <PropertyRef Name="MAMONAN" />
+          </Key>
+          <Property Name="MAMONAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MALOAIMONAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TENMONAN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ANHMONAN" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DONGIA" Type="Int32" />
+          <NavigationProperty Name="LOAIMONAN" Relationship="Self.FK_LMA" FromRole="MON_AN" ToRole="LOAIMONAN" />
+          <NavigationProperty Name="CHI_TIET_HOA_HON" Relationship="QLAnmiiModel.FK_MA" FromRole="MON_AN" ToRole="CHI_TIET_HOA_HON" />
+        </EntityType>
+        <EntityType Name="NHAN_VIEN">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HOTENNV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GIOITINH" Type="Boolean" />
+          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ANHNV" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAU" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HOA_DON" Relationship="Self.FK_NV" FromRole="NHAN_VIEN" ToRole="HOA_DON" />
+        </EntityType>
+        <Association Name="FK_NV">
+          <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAN_VIEN">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="HOA_DON">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LMA">
+          <End Role="LOAIMONAN" Type="Self.LOAIMONAN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MON_AN" Type="Self.MON_AN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIMONAN">
+              <PropertyRef Name="MALOAIMONAN" />
+            </Principal>
+            <Dependent Role="MON_AN">
+              <PropertyRef Name="MALOAIMONAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLAnmiiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HOA_DON" EntityType="Self.HOA_DON" />
+          <EntitySet Name="LOAIMONANs" EntityType="Self.LOAIMONAN" />
+          <EntitySet Name="MON_AN" EntityType="Self.MON_AN" />
+          <EntitySet Name="NHAN_VIEN" EntityType="Self.NHAN_VIEN" />
+          <AssociationSet Name="FK_NV" Association="Self.FK_NV">
+            <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+            <End Role="HOA_DON" EntitySet="HOA_DON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LMA" Association="Self.FK_LMA">
+            <End Role="LOAIMONAN" EntitySet="LOAIMONANs" />
+            <End Role="MON_AN" EntitySet="MON_AN" />
+          </AssociationSet>
+          <EntitySet Name="CHI_TIET_HOA_HON" EntityType="QLAnmiiModel.CHI_TIET_HOA_HON" />
+          <AssociationSet Name="FK_HD2" Association="QLAnmiiModel.FK_HD2">
+            <End Role="HOA_DON" EntitySet="HOA_DON" />
+            <End Role="CHI_TIET_HOA_HON" EntitySet="CHI_TIET_HOA_HON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MA" Association="QLAnmiiModel.FK_MA">
+            <End Role="MON_AN" EntitySet="MON_AN" />
+            <End Role="CHI_TIET_HOA_HON" EntitySet="CHI_TIET_HOA_HON" />
+          </AssociationSet>
+          <FunctionImport Name="HoaDon_ThongKe" ReturnType="Collection(QLAnmiiModel.HoaDon_ThongKe_Result)">
+            <Parameter Name="tgbd" Mode="In" Type="DateTime" />
+            <Parameter Name="tgkt" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="LIENHEs" EntityType="QLAnmiiModel.LIENHE" />
+        </EntityContainer>
+        <EntityType Name="CHI_TIET_HOA_HON">
+          <Key>
+            <PropertyRef Name="MAMONAN" />
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAMONAN" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MAHD" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <NavigationProperty Name="HOA_DON" Relationship="QLAnmiiModel.FK_HD2" FromRole="CHI_TIET_HOA_HON" ToRole="HOA_DON" />
+          <NavigationProperty Name="MON_AN" Relationship="QLAnmiiModel.FK_MA" FromRole="CHI_TIET_HOA_HON" ToRole="MON_AN" />
+        </EntityType>
+        <Association Name="FK_HD2">
+          <End Type="QLAnmiiModel.HOA_DON" Role="HOA_DON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="QLAnmiiModel.CHI_TIET_HOA_HON" Role="CHI_TIET_HOA_HON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOA_DON">
+              <PropertyRef Name="MAHD" />
+            </Principal>
+            <Dependent Role="CHI_TIET_HOA_HON">
+              <PropertyRef Name="MAHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MA">
+          <End Type="QLAnmiiModel.MON_AN" Role="MON_AN" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="QLAnmiiModel.CHI_TIET_HOA_HON" Role="CHI_TIET_HOA_HON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MON_AN">
+              <PropertyRef Name="MAMONAN" />
+            </Principal>
+            <Dependent Role="CHI_TIET_HOA_HON">
+              <PropertyRef Name="MAMONAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="HoaDon_ThongKe_Result">
+          <Property Type="String" Name="MAHD" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="HOTENKH" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DIACHI" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SDT" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="MANV" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="THOIGIANDAT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="THOIGIANGIAO" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="TONGTIEN" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="LIENHE">
+          <Key>
+            <PropertyRef Name="MALIENHE" />
+          </Key>
+          <Property Name="MALIENHE" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HOTEN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TIEUDE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLAnmiiModelStoreContainer" CdmEntityContainer="QLAnmiiEntities">
+          <EntitySetMapping Name="HOA_DON">
+            <EntityTypeMapping TypeName="QLAnmiiModel.HOA_DON">
+              <MappingFragment StoreEntitySet="HOA_DON">
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="HOTENKH" ColumnName="HOTENKH" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="THOIGIANDAT" ColumnName="THOIGIANDAT" />
+                <ScalarProperty Name="THOIGIANGIAO" ColumnName="THOIGIANGIAO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAIMONANs">
+            <EntityTypeMapping TypeName="QLAnmiiModel.LOAIMONAN">
+              <MappingFragment StoreEntitySet="LOAIMONAN">
+                <ScalarProperty Name="MALOAIMONAN" ColumnName="MALOAIMONAN" />
+                <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MON_AN">
+            <EntityTypeMapping TypeName="QLAnmiiModel.MON_AN">
+              <MappingFragment StoreEntitySet="MON_AN">
+                <ScalarProperty Name="MAMONAN" ColumnName="MAMONAN" />
+                <ScalarProperty Name="MALOAIMONAN" ColumnName="MALOAIMONAN" />
+                <ScalarProperty Name="TENMONAN" ColumnName="TENMONAN" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="ANHMONAN" ColumnName="ANHMONAN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHAN_VIEN">
+            <EntityTypeMapping TypeName="QLAnmiiModel.NHAN_VIEN">
+              <MappingFragment StoreEntitySet="NHAN_VIEN">
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="HOTENNV" ColumnName="HOTENNV" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="ANHNV" ColumnName="ANHNV" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHI_TIET_HOA_HON">
+            <EntityTypeMapping TypeName="QLAnmiiModel.CHI_TIET_HOA_HON">
+              <MappingFragment StoreEntitySet="CHI_TIET_HOA_HON">
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="MAMONAN" ColumnName="MAMONAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="HoaDon_ThongKe" FunctionName="QLAnmiiModel.Store.HoaDon_ThongKe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLAnmiiModel.HoaDon_ThongKe_Result">
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="HOTENKH" ColumnName="HOTENKH" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="THOIGIANDAT" ColumnName="THOIGIANDAT" />
+                <ScalarProperty Name="THOIGIANGIAO" ColumnName="THOIGIANGIAO" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="LIENHEs">
+            <EntityTypeMapping TypeName="QLAnmiiModel.LIENHE">
+              <MappingFragment StoreEntitySet="LIENHE">
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="MALIENHE" ColumnName="MALIENHE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

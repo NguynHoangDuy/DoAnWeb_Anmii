@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLAnmiiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CHI_TIET_HOA_HON">
+    <Key>
+      <PropertyRef Name="MAMONAN" />
+      <PropertyRef Name="MAHD" />
+    </Key>
+    <Property Name="MAMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MAHD" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="SOLUONG" Type="int" />
+  </EntityType>
+  <EntityType Name="HOA_DON">
+    <Key>
+      <PropertyRef Name="MAHD" />
+    </Key>
+    <Property Name="MAHD" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="HOTENKH" Type="nvarchar" MaxLength="100" />
+    <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="varchar" MaxLength="11" />
+    <Property Name="MANV" Type="varchar" MaxLength="30" />
+    <Property Name="THOIGIANDAT" Type="datetime" />
+    <Property Name="THOIGIANGIAO" Type="datetime" />
+    <Property Name="TONGTIEN" Type="float" />
+  </EntityType>
+  <EntityType Name="LIENHE">
+    <Key>
+      <PropertyRef Name="MALIENHE" />
+    </Key>
+    <Property Name="MALIENHE" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="HOTEN" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+    <Property Name="TIEUDE" Type="varchar" MaxLength="100" />
+    <Property Name="NOIDUNG" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="LOAIMONAN">
+    <Key>
+      <PropertyRef Name="MALOAIMONAN" />
+    </Key>
+    <Property Name="MALOAIMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="TENLOAI" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MON_AN">
+    <Key>
+      <PropertyRef Name="MAMONAN" />
+    </Key>
+    <Property Name="MAMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MALOAIMONAN" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="TENMONAN" Type="nvarchar" MaxLength="100" />
+    <Property Name="MOTA" Type="varchar" MaxLength="300" />
+    <Property Name="ANHMONAN" Type="varchar" MaxLength="200" />
+    <Property Name="DONGIA" Type="int" />
+  </EntityType>
+  <EntityType Name="NHAN_VIEN">
+    <Key>
+      <PropertyRef Name="MANV" />
+    </Key>
+    <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="HOTENNV" Type="nvarchar" MaxLength="100" />
+    <Property Name="GIOITINH" Type="bit" />
+    <Property Name="NGAYSINH" Type="date" />
+    <Property Name="SDT" Type="varchar" MaxLength="10" />
+    <Property Name="DIACHI" Type="nvarchar" MaxLength="200" />
+    <Property Name="ANHNV" Type="varchar" MaxLength="200" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="200" />
+    <Property Name="MATKHAU" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK_HD2">
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CHI_TIET_HOA_HON" Type="Self.CHI_TIET_HOA_HON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOA_DON">
+        <PropertyRef Name="MAHD" />
+      </Principal>
+      <Dependent Role="CHI_TIET_HOA_HON">
+        <PropertyRef Name="MAHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LMA">
+    <End Role="LOAIMONAN" Type="Self.LOAIMONAN" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MON_AN" Type="Self.MON_AN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAIMONAN">
+        <PropertyRef Name="MALOAIMONAN" />
+      </Principal>
+      <Dependent Role="MON_AN">
+        <PropertyRef Name="MALOAIMONAN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MA">
+    <End Role="MON_AN" Type="Self.MON_AN" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CHI_TIET_HOA_HON" Type="Self.CHI_TIET_HOA_HON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_AN">
+        <PropertyRef Name="MAMONAN" />
+      </Principal>
+      <Dependent Role="CHI_TIET_HOA_HON">
+        <PropertyRef Name="MAMONAN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NV">
+    <End Role="NHAN_VIEN" Type="Self.NHAN_VIEN" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHAN_VIEN">
+        <PropertyRef Name="MANV" />
+      </Principal>
+      <Dependent Role="HOA_DON">
+        <PropertyRef Name="MANV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="HoaDon_ThongKe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tgbd" Type="datetime" Mode="In" />
+    <Parameter Name="tgkt" Type="datetime" Mode="In" />
+  </Function>
+  <EntityContainer Name="QLAnmiiModelStoreContainer">
+    <EntitySet Name="CHI_TIET_HOA_HON" EntityType="Self.CHI_TIET_HOA_HON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOA_DON" EntityType="Self.HOA_DON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LIENHE" EntityType="Self.LIENHE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOAIMONAN" EntityType="Self.LOAIMONAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_AN" EntityType="Self.MON_AN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NHAN_VIEN" EntityType="Self.NHAN_VIEN" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_HD2" Association="Self.FK_HD2">
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+      <End Role="CHI_TIET_HOA_HON" EntitySet="CHI_TIET_HOA_HON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LMA" Association="Self.FK_LMA">
+      <End Role="LOAIMONAN" EntitySet="LOAIMONAN" />
+      <End Role="MON_AN" EntitySet="MON_AN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MA" Association="Self.FK_MA">
+      <End Role="MON_AN" EntitySet="MON_AN" />
+      <End Role="CHI_TIET_HOA_HON" EntitySet="CHI_TIET_HOA_HON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NV" Association="Self.FK_NV">
+      <End Role="NHAN_VIEN" EntitySet="NHAN_VIEN" />
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

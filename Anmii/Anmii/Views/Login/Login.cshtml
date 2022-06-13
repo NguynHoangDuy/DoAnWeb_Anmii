@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập hệ thống</title>
+    <!-- Custom fonts for this template-->
+    
+    <!-- Custom styles for this template-->
+    <link href="~/Content/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+<body style="background-image: url(../Images/food_banner.jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%">
+    <div class="container col-md-4" style="margin-top: 200px; ">
+        <h3 style="color:crimson; text-align:center">ĐĂNG NHẬP HỆ THỐNG</h3>
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+        {
+            @Html.ValidationSummary(false, "", new { @class = "alert-danger" })
+            <div class="form-group">
+                <input class="form-control" data-val="true" data-val-required="The Email field is required." placeholder="Email" id="Email" name="Email" type="text">
+                <span class="field-validation-valid badge badge-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" data-val="true" data-val-required="The Password field is required." placeholder="Mật khẩu" id="Password" name="Password" type="password">
+                <span class="field-validation-valid badge badge-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox small text-center">
+                    <input type="checkbox" class="custom-control-input" id="customCheck">
+                    <label class="custom-control-label" for="customCheck"> <b>Ghi nhớ đăng nhập</b> </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Đăng nhập" />
+            </div>
+            <hr>
+        }
+        <div class="text-center">
+            <a style="text-decoration:none" href="~/MON_AN_NguoiDung/Index"> <button class="btn btn-primary btn-user btn-block"> Trở về</button></a>
+        </div>
+    </div>
+</body>
+</html>
+
+

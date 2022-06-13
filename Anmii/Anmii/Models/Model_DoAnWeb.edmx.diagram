@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="19dc257ff1514976831966e6a2572ec7" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="QLAnmiiModel.HOA_DON" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLAnmiiModel.LOAIMONAN" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLAnmiiModel.MON_AN" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLAnmiiModel.NHAN_VIEN" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="QLAnmiiModel.FK_NV" ManuallyRouted="false" />
+        <AssociationConnector Association="QLAnmiiModel.FK_LMA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QLAnmiiModel.CHI_TIET_HOA_HON" Width="1.5" PointX="5.25" PointY="2.125" />
+        <AssociationConnector Association="QLAnmiiModel.FK_HD2" />
+        <AssociationConnector Association="QLAnmiiModel.FK_MA" />
+        <EntityTypeShape EntityType="QLAnmiiModel.LIENHE" Width="1.5" PointX="5.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

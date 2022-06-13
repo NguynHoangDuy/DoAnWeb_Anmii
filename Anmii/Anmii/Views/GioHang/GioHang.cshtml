@@ -1,0 +1,145 @@
+﻿@using Anmii.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_LayoutGioHang.cshtml";
+}
+
+<div style="margin:20px; font-weight:bolder; font-size:20px">
+    @Html.Action("TB", "GioHang")
+</div>
+<style>
+    table {
+        font-size: 1.5rem;
+    }
+
+        table td {
+            text-align: center;
+            align-items: center;
+            padding: 10px
+        }
+
+        table th {
+            text-align: center;
+            padding: 10px
+        }
+</style>
+<center>
+    <table>
+        <tr>
+            <th style="font-weight:bold; ">Tên món</th>
+            <th style="font-weight:bold">Ảnh </th>
+            <th style="font-weight:bold">Đơn Giá</th>
+            <th style="font-weight:bold">Số Lượng</th>
+            <th style="font-weight:bold">Thành Tiền</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style=" padding: 10px">@item.iTenMon</td>
+                <td style=" padding: 10px"><img src="@Url.Content("~/Images/"+item.iAnh)" style="width:50px;height:50px" alt="Image" class="img-fluid"></td>
+                <td style=" padding: 10px">@string.Format("{0:0,0}", item.iDonGia) vnđ</td>
+                <td style=" padding: 10px">@item.iSoLuong</td>
+                <td style=" padding: 10px">@string.Format("{0:0,0}", item.iThanhTien) vnđ</td>
+                <td style=" padding: 10px">
+                    <div class="quitbag" style="display: flex; justify-content:center">
+                        @Html.ActionLink(" Xóa ", "XoaGioHang", new { @Ma = item.iMaMon })
+                    </div>
+                </td>
+            </tr>
+
+        }
+    </table>
+
+    <h3>Tổng tiền: @Html.Action("TongTien", "GioHang") vnđ</h3>
+    <button type="button" class="btn sell btn-warning mt-4">@Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")</button>
+</center>
+
+@using (Html.BeginForm("DatHang", "GioHang", FormMethod.Post, new { @style = "width: 100%" }))
+{
+    <style>
+
+        .h2_tag {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .label_tag {
+            display: block;
+            font-weight: bold;
+        }
+
+        .input_tag {
+            display: block;
+            border-top: 1px solid white;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            border-bottom: 2px solid #00BCD4;
+            margin-top: 6px;
+            margin-bottom: 10px;
+            outline-style: none;
+        }
+
+        .center_pos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input_tag[type="text"] {
+            padding: 5px;
+            width: 70%;
+            margin-left: 4px;
+        }
+
+        .input_tag#XacNhan {
+            padding: 7px;
+            margin-left: auto;
+            margin-top: 30px;
+            width: 70%;
+            border-radius: 10px;
+            border: none;
+            bottom: 10px;
+            cursor: pointer;
+            margin-right: auto;
+            background-color: tomato;
+        }
+
+        .input#XacNhan:hover {
+            background-color: yellowgreen;
+        }
+
+        #XacNhan a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+    <div class="row" style="font-size:1.5rem">
+        <h2 class="h2_tag">Xác nhận đơn hàng</h2>
+
+        <div class="center_pos col-sm-12">
+            <label class="label_tag col-sm-2">Họ và tên:</label>
+            <input class="input_tag col-sm-6" type="text" name="tenKH" value="@ViewBag.tenKH" required>
+            <label id='mess' style="color:white;"></label>
+        </div>
+        <div class="center_pos col-sm-12">
+            <label class="label_tag col-sm-2">Số điện thoại:</label>
+            <input class="input_tag col-sm-6" type="tel" name="sdt" value="@ViewBag.sdt" required>
+            <label id='mess' style="color:white;"></label>
+        </div>
+        <div class="center_pos col-sm-12">
+            <label class="label_tag col-sm-2">Địa chỉ:</label>
+            <input class="input_tag col-sm-6" type="text" name="diaChi" value="@ViewBag.diaChi" required>
+            <label id='mess' style="color:white;"></label>
+        </div>
+        <button type="submit" id="XacNhan" class="input_tag col-md-3 " onclick="xacNhan()">Xác nhận</button>
+    </div>
+}
+<script language="javascript">
+    function xacNhan() {
+        alert("Xác nhận đặt hàng thành công!");
+    }
+</script>
+    

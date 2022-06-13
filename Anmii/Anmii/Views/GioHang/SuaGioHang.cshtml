@@ -1,0 +1,65 @@
+﻿
+
+@using Anmii.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "CapNhatGioHang";
+    Layout = "~/Views/Shared/_LayoutGioHang.cshtml";
+}
+<style>
+    table {
+        font-size: 1.5rem;
+    }
+
+        table td {
+            text-align: center;
+            align-items: center;
+             padding: 10px
+        }
+
+        table th {
+            text-align: center;
+            padding: 10px
+        }
+</style>
+    <div >
+        <center>
+            <table class="tb_mobile">
+                <tr>
+                    <th style="font-weight:bold">Mã món</th>
+                    <th style="font-weight: bold">Tên món</th>
+                    <th style="font-weight: bold">Ảnh</th>
+                    <th style="font-weight: bold">Đơn Giá</th>
+                    <th style="font-weight: bold">Số Lượng</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="clear:both">
+                        <td >@item.iMaMon</td>
+
+                        <td>@item.iTenMon</td>
+
+                        <td><img src="@Url.Content("~/Images/"+item.iAnh)" style="width:50px;height:50px" alt="Image" class="img-fluid"> </td>
+
+                        <td>@string.Format("{0:0,0}", item.iDonGia) vnd</td>
+
+                        @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @Ma = item.iMaMon }))
+                        {
+                            <td>
+
+                                @Html.TextBox("txtSoLuong", @item.iSoLuong, new { @class = "btntext val", type = "number", min = "1" })
+                            </td>
+                            <td>
+                                <div class="quitbag" style="display: flex; justify-content:center">
+                                    <button class="btn btn-warning">Cập nhật</button>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </center>
+    </div>
+
+
+

@@ -1,0 +1,26 @@
+﻿@model Anmii.Models.MON_AN
+@{
+    ViewBag.Title = "DeleteMonAn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h4 class="text-center">Bạn chắc chắn muốn xóa món ăn này ?</h4>
+<hr />
+<div class="form-horizontal" align="center">
+    <img style="width: 300px; height: 200px;" src="~/Images/Food/@Html.DisplayFor(model => model.ANHMONAN)" />
+    <div style=" margin-left: 10px; width: 350px;">
+        <label>Mã món ăn: @Html.DisplayFor(model => model.MAMONAN)</label>
+        <label>Tên món ăn: @Html.DisplayFor(model => model.TENMONAN)</label>
+        <label>Loại món: @Html.DisplayFor(model => model.LOAIMONAN.TENLOAI)</label>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color" style="margin-top" align="center">
+        <button type="submit" value="DeleteMonAn" class="price price_color btn btn-danger">Xóa</button> |
+        @Html.ActionLink("Quay lại", "IndexMonAn")
+    </div>
+}
+
+

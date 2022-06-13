@@ -1,0 +1,36 @@
+﻿@model Anmii.Models.HOA_DON
+@{
+    ViewBag.Title = "DeleteHD";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div id="cart" class="grid__column-12" style="margin-top:20px">
+
+    <h3 style="text-align: center;">Bạn có chắc muốn xóa hóa đơn của khách hàng này?</h3>
+    <hr />
+    <div class="form-horizontal" style="display:flex; justify-content:center">
+
+        <div style=" margin-left: 10px; width: 350px;">
+            <label class="form-control">Mã hóa đơn: <span>@Html.DisplayFor(model => model.MAHD)</span></label>
+            <label class="form-control"> Tên khách hàng: <span>@Html.DisplayFor(model => model.HOTENKH)</span></label>
+
+
+        </div>
+
+    </div>
+    <div class="home-filter grid__row">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <button type="submit" value="DeleteHD" class="btn btn-danger">Xóa</button> |
+                @Html.ActionLink("Quay lại", "IndexHD")
+            </div>
+        }
+    </div>
+</div>
+
+
+

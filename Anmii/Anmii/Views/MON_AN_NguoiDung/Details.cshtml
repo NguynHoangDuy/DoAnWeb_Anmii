@@ -1,0 +1,38 @@
+﻿@model  Anmii.Models.MON_AN
+    @{
+        ViewBag.Title = "Details";
+        Layout = "~/Views/Shared/_LayoutNguoiDung.cshtml";
+
+    }
+
+    <center style="height:500px; margin-top: 50px;">
+        <div style="display: flex; justify-content: center">
+            <div>
+                <img style="width: 300px; height: 200px; align-self: center; margin-right: 10px" src="~/Images/@Html.DisplayFor(model => model.TENMONAN))" />
+                <div style="display: flex; align-items: center; margin-top:10px">
+                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { @Ma = Model.MAMONAN, @strURL = Request.Url.ToString() }))
+                    {
+                        <button id="Them" type="submit" class="btn btn-danger" style="margin-top:1%" onclick="openWin()">Mua ngay</button>
+                    }
+                    &nbsp;
+                    <a href="~/Views/NongSans/Details.cshtml">~/Views/NongSans/Details.cshtml</a>
+                    <script language="javascript">
+                        var button = document.getElementById("Them");
+                        button.onclick = function () {
+                            alert("Thêm vào giỏ thành công!");
+                        }
+                    </script>
+                    @using (Html.BeginForm("Quay lại", "Index"))
+                    {
+                        <button class="btn btn-info">Quay lại</button>
+                    }
+                </div>
+            </div>
+            <div style="margin-left: 10px; width: 350px; text-align:start">
+                <label style="font-weight: bold">Tên món ăn: </label> @Html.DisplayFor(model => model.TENMONAN)<br />
+                <label style="font-weight: bold">Loại: </label> @Html.DisplayFor(model => model.LOAIMONAN.TENLOAI) <br />
+                <label style="font-weight: bold">Giá: </label> @Html.DisplayFor(model => model.DONGIA)/kg <br />
+                <label style="font-weight: bold">Mô tả: </label> @Html.DisplayFor(model => model.MOTA) <br />
+            </div>
+        </div>
+    </center>
